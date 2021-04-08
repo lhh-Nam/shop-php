@@ -1,6 +1,7 @@
 <!-- Top Sale -->
 <?php
     $product_shuffle = $product -> getData();
+    shuffle($product_shuffle); // random stt của các product
 ?>
 
 <section id="top-sale">
@@ -12,7 +13,8 @@
             <?php foreach ($product_shuffle as $item) { ?>
             <div class="item py-2">
                 <div class="product font-rale">
-                    <a href="#"><img src="<?php echo $item['item_image'] ?? "./assets/products/1.png" ?>" alt="product1"
+                    <a href="<?php printf('%s?item_id=%s', 'product.php', $item['item_id'])?>"><img
+                            src="<?php echo $item['item_image'] ?? "./assets/products/1.png" ?>" alt="product1"
                             class="img-fluid" /></a>
 
                     <div class="text-center">
