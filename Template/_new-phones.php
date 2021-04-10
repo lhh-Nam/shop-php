@@ -1,5 +1,7 @@
 <!-- New Phones -->
 <?php
+    shuffle($product_shuffle);
+
     //Request method post
     if($_SERVER['REQUEST_METHOD'] == "POST"){
         if(isset($_POST['new_phones_submit'])){

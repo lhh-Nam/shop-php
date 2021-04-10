@@ -1,6 +1,5 @@
 <!-- Top Sale -->
 <?php
-    $product_shuffle = $product -> getData();
     shuffle($product_shuffle); // random stt của các product
 
     //Request method post
