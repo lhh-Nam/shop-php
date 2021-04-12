@@ -13,6 +13,8 @@
             $Cart -> addToCart($_POST['user_id'], $_POST['item_id']);
         }
     }
+
+    $in_cart = $Cart -> getCartId($product -> getData('cart'));
 ?>
 
 <section id="special-price">
@@ -35,7 +37,7 @@
         </div>
 
         <div class="grid">
-            <?php array_map(function($item){?>
+            <?php array_map(function($item) use($in_cart) {?>
             <div class="grid-item border <?php echo $item['item_brand']  ?>">
                 <div class="item py-2" style="width: 200px">
                     <div class="product font-rale">
@@ -61,9 +63,18 @@
                             <form method="post">
                                 <input type="hidden" name="item_id" value="<?php echo $item['item_id'] ?? '1' ?>">
                                 <input type="hidden" name="user_id" value="<?php echo  1; ?>">
-                                <button type="submit" name="special_price_submit" class="btn btn-warning font-size-12">
-                                    Thêm giỏ hàng
-                                </button>
+                                <?php
+                                    // check xem item đã có trong cart chưa
+                                 if(in_array($item['item_id'], $in_cart ?? [])) {
+                                    echo '<button type="submit" disabled class="btn btn-success font-size-12">
+                                                Trong giỏ hàng
+                                        </button>';
+                                 } else{
+                                     echo '<button type="submit" name="top_sale_submit" class="btn btn-warning font-size-12">
+                                                Thêm giỏ hàng
+                                        </button>';
+                                 }                 
+                            ?>
                             </form>
                         </div>
                     </div>

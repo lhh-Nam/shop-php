@@ -1,4 +1,13 @@
 <!-- Shopping cart section -->
+<?php
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        if(isset($_POST['delete-cart-submit'])){
+            $deletedrecord = $Cart -> deleteCart($_POST['item_id']);
+        }
+    }
+?>
+
+
 <section id="cart" class="py-3 mb-5">
     <div class="container-fluid w-75">
         <h5 class="font-baloo font-size-20">Shopping Cart</h5>
@@ -43,21 +52,26 @@
                         <!-- Product qty -->
                         <div class="qty d-flex pt-2">
                             <div class="d-flex font-rale w-25">
-                                <button class="qty-up border bg-light" data-id="pro1">
+                                <button class="qty-up border bg-light" data-id="<?php echo $item['item_id'] ?? '0' ?>">
                                     <i class="fas fa-angle-up"></i>
                                 </button>
 
                                 <input type="text" class="qty_input border px-2 w-100 bg-light" disabled value="1"
-                                    placeholder="1" data-id="pro1" />
+                                    placeholder="1" data-id="<?php echo $item['item_id'] ?? '0' ?>" />
 
-                                <button class="qty-down border bg-light" data-id="pro1">
+                                <button class="qty-down border bg-light"
+                                    data-id="<?php echo $item['item_id'] ?? '0' ?>">
                                     <i class="fas fa-angle-down"></i>
                                 </button>
                             </div>
+                            <form method="post">
+                                <input type="hidden" value="<?php echo $item['item_id'] ?? 0; ?>" name="item_id">
 
-                            <button type="submit" class="btn font-baloo text-danger px-3 border-right">
-                                Xoá
-                            </button>
+                                <button type="submit" name="delete-cart-submit"
+                                    class="btn font-baloo text-danger px-3 border-right">
+                                    Xoá
+                                </button>
+                            </form>
 
                             <button type="submit" class="btn font-baloo text-danger px-3">
                                 Lưu
@@ -68,7 +82,8 @@
 
                     <div class="col-sm-2 text-right">
                         <div class="font-size-20 text-danger font-baloo">
-                            $<span class="product_price"><?php echo $item['item_price'] ?? 0 ?></span>
+                            $<span class="product_price"
+                                data-id="<?php echo $item['item_id'] ?? '0' ?>"><?php echo $item['item_price'] ?? 0 ?></span>
                         </div>
                     </div>
                 </div>
@@ -91,8 +106,9 @@
 
                     <div class="border-top py-4">
                         <h5 class="font-baloo font-size-20">
-                            Tổng cộng: (2 item) &nbsp;<span class="text-danger">$<span class="text-danger"
-                                    id="deal-price"><?php echo isset($subTotal) ? $Cart -> getSum($subTotal) : 0 ?></span></span>
+                            Tổng cộng: (<?php echo isset($subTotal) ? count($subTotal) : 0 ?> item) &nbsp;<span
+                                class="text-danger">$<span class="text-danger"
+                                    id="deal_price"><?php echo isset($subTotal) ? $Cart -> getSum($subTotal) : 0 ?></span></span>
                         </h5>
 
                         <button class="btn btn-warning mt-3">Thanh toán</button>

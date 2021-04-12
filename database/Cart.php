@@ -44,6 +44,18 @@
             }
         }
 
+        // Delete cart item using cart item id
+        public function deleteCart($item_id = null, $table = 'cart'){
+            if($item_id != null){
+                $result = $this -> db -> con -> query("DELETE FROM {$table} WHERE item_id = {$item_id}");
+                if($result){
+                    header("Location: ".$_SERVER['PHP_SEFL']);
+                }
+
+                return $result;
+            }
+        }
+
         // Calculate sub total 
         public function getSum($arr){
             if(isset($arr)){
@@ -53,6 +65,17 @@
                 }
 
                 return sprintf('%.2f', $sum);
+            }
+        }
+
+        // Get item-it of shopping cart list
+        public function getCartId($cartArray = null , $key = "item_id"){
+            if($cartArray != null){
+                $cart_id = array_map(function($value) use($key){
+                    return $value[$key];
+                }, $cartArray);
+
+                return $cart_id;
             }
         }
     }
