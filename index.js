@@ -93,14 +93,14 @@ $(document).ready(function () {
           $input.val(function (i, oldval) {
             return ++oldval;
           });
+
+          // Increase price of the product
+          $price.text(parseInt(item_price * $input.val()).toFixed(2));
+
+          // Set subtotal price
+          let subtotal = parseInt($deal_price.text()) + parseInt(item_price);
+          $deal_price.text(subtotal.toFixed(2));
         }
-
-        // Increase price of the product
-        $price.text(parseInt(item_price * $input.val()).toFixed(2));
-
-        // Set subtotal price
-        let subtotal = parseInt($deal_price.text()) + parseInt(item_price);
-        $deal_price.text(subtotal.toFixed(2));
       },
     });
   });
@@ -108,10 +108,30 @@ $(document).ready(function () {
   //click pn qty down button
   $qty_down.click(function () {
     let $input = $(`.qty_input[data-id='${$(this).data("id")}']`);
-    if ($input.val() > 1 && $input.val() <= 10) {
-      $input.val(function (i, oldval) {
-        return --oldval;
-      });
-    }
+    let $price = $(`.product_price[data-id='${$(this).data("id")}']`);
+
+    // Change product price using ajax call
+    $.ajax({
+      url: "template/ajax.php",
+      type: "post",
+      data: { itemid: $(this).data("id") },
+      success: function (result) {
+        let obj = JSON.parse(result);
+        let item_price = obj[0]["item_price"];
+
+        if ($input.val() > 1 && $input.val() <= 10) {
+          $input.val(function (i, oldval) {
+            return --oldval;
+          });
+
+          // Increase price of the product
+          $price.text(parseInt(item_price * $input.val()).toFixed(2));
+
+          // Set subtotal price
+          let subtotal = parseInt($deal_price.text()) - parseInt(item_price);
+          $deal_price.text(subtotal.toFixed(2));
+        }
+      },
+    });
   });
 });

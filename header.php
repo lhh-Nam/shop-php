@@ -41,14 +41,14 @@
             <p class="font-rale font-size-12 text-black-50 m-0">Huy nam vô địch</p>
 
             <div class="font-rale font-size-14">
-                <a href="#" class="px-3 border-right border-left text-dark">Login</a>
-                <a href="#" class="px-3 border-right text-dark">Whishlist(0)</a>
+                <a href="/login.php" class="px-3 border-right border-left text-dark">Login</a>
+                <a href="/cart.php" class="px-3 border-right text-dark">Whishlist(0)</a>
             </div>
         </div>
 
         <!-- Primary Navigation -->
         <nav class="navbar navbar-expand-lg navbar-dark color-second-bg">
-            <a class="navbar-brand" href="#">Mobile Shop</a>
+            <a href="/index.php" class="navbar-brand" href="#">Mobile Shop</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
