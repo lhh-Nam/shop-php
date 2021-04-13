@@ -2,6 +2,9 @@
     //require MySQL Connection
     require('database/DBController.php');
 
+    //require User Class
+    require('database/User.php');
+
     //require Product Class
     require('database/Product.php');
 
@@ -17,6 +20,7 @@
 
     //Cart object
     $Cart = new Cart($db);
+    $User = new User($db);
 
     //TEST INSERT
     // $arr = array(
